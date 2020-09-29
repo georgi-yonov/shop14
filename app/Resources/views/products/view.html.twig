@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-md-12">
+                <product>
+                    <header>
+                        <h2>{{ product.category }}</h2>
+                    </header>
+
+                    <p>
+                        {{ product.name }}
+                    </p>
+
+                    <p>
+                        <img src="{{ asset('uploads/' ~ product.image) }}" width="200" height="150">
+                    </p>
+
+                    <p>
+                        {{ product.description }}
+                    </p>
+
+                    <p>
+                        {{ product.price }}
+                    </p>
+
+                    <small class="author">
+                        {{ product.author.lastName }}
+                    </small>
+
+                    <footer>
+                        <div class="pull-right">
+                            {% if app.getUser().isAdmin() %}
+                            <a class="btn btn-success btn-xs" href="{{ path('product_edit', {id: product.id}) }}">Edit</a>
+                            <a class="btn btn-danger btn-xs" href="{{ path('product_delete', {id: product.id}) }}">Delete</a>
+                            {% endif %}
+                            <a class="btn btn-success btn-xs" href="{{ path('like', {id: product.id}) }}">Like</a>
+                            <a class="btn btn-info btn-xs" href="{{ path('cart_add', {id: product.id}) }}">Add to cart</a>
+                            <a class="btn btn-default btn-xs" href="{{ path('shop_index') }}">back &raquo;</a>
+                        </div>
+                    </footer>
+                </product>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+

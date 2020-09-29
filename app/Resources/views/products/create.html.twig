@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    <div class="container body-content span=8 offset=2">
+        <div class="well">
+            <form class="form-horizontal"  enctype="multipart/form-data" action="{{ path('product_create') }}" method="POST">
+                <fieldset>
+                    <legend>New Post</legend>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="product_category">Post Category</label>
+                        <div class="col-sm-4 ">
+                            <select name="product[category]" class="form-control">
+                                {% for categoryOne in category %}
+                                    <option value="{{ categoryOne.id }}">{{ categoryOne.name }}</option>
+                                {% endfor %}
+                            </select><br />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="product_name">Post Name</label>
+                        <div class="col-sm-4 ">
+                            <input type="text" class="form-control" id="product_name" placeholder="Post Name"
+                                   name="product[name]">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="product_imageURL">Upload Image</label>
+                        <div class="col-sm-4 ">
+                            <input accept=".jpg, .jpeg, .png" type="file" class="form-control" id="product_imageURL" placeholder="Upload Image"
+                                   name="product[image]">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="product_description">Post Description</label>
+                        <div class="col-sm-4 ">
+                            <input type="text" class="form-control" id="product_description" placeholder="Post Description"
+                                   name="product[description]">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="product_price">Post Price</label>
+                        <div class="col-sm-4 ">
+                            <input type="text" class="form-control" id="product_price" placeholder="Post Price"
+                                   name="product[price]">
+                        </div>
+                    </div>
+
+
+                    {{ form_row(form._token) }}
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <a class="btn btn-default" href="{{ path('shop_index') }}">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+   {% for cartElement in cartElementsDetails %}
+      {% set product = cartElement.product %}
+      {% set amout = cartElement.amout %}
+      <div class="col-md-6">
+         <product>
+            <header>
+               <h2>{{ product.name }}</h2> <!-- взимаме getName от entity-то -->
+            </header>
+
+            <p>
+               {{ product.name }}
+            </p>
+
+            <p>
+               <img src="{{ asset('uploads/' ~ product.image) }}" width="200" height="150">
+            </p>
+
+            <p>
+               {{ product.description }}
+            </p>
+
+            <p>
+               {{ product.price }} BGN
+            </p>
+            <p>
+               Amout:
+               {{ amout }}
+            </p>
+            <p>
+               Total:
+               {{ amout * product.price }}
+            </p>
+{#            <footer>#}
+{#               <div class="pull-right">#}
+{#                  <a class="btn btn-success btn-xs" href="{{ path('like', {id: product.id}) }}">Like</a>#}
+{#                  <a class="btn btn-info btn-xs" href="{{ path('add_to_cart', {id: product.id}) }}">Add to cart</a>#}
+{#                  <a class="btn btn-default btn-xs" href="{{ path('product_view', {id: product.id}) }}">Read more &raquo;</a>#}
+{#               </div>#}
+{#            </footer>#}
+         </product>
+      </div>
+   {% endfor %}
+
+{% endblock %}

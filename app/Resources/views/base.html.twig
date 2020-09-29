@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{% block title %}Online Shop{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}">
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+
+<body id="{% block body_id %}{% endblock %}">
+
+{% block header %}
+    <header>
+        <div class="navbar navbar-default navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="{{ path('shop_index') }}" class="navbar-brand">ONLINE SHOP</a>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+
+                <div class="navbar-brand">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a href="{{ path('products_edit', {'id':1}) }}" class="navbar-brand">Football</a></li>
+                        <li><a href="{{ path('products_edit', {'id':2}) }}" class="navbar-brand">Basketball</a></li>
+                        <li><a href="{{ path('products_edit', {'id':3}) }}" class="navbar-brand">Tennis</a></li>
+                        <li><a href="{{ path('products_edit', {'id':4}) }}" class="navbar-brand">Boxing</a></li>
+                        <li><a href="{{ path('products_edit', {'id':5}) }}" class="navbar-brand">Cave deed</a></li>
+                        <li><a href="{{ path('products_edit', {'id':6}) }}" class="navbar-brand">Ski</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if app.user %}
+                        <li>
+                        <a href="{{ path('user_profile') }}" class="navbar-brand">
+                        My Profile
+                        </a>
+                        </li>
+                        {% if app.getUser().isAdmin() %}
+                        <li>
+                        <a href="{{ path('product_create') }}" class="navbar-brand">
+                        Products
+                        </a>
+                        </li>
+                            {% endif %}
+                        <li>
+                        <a href="{{ path('security_logout') }}" class="navbar-brand">
+                        Logout
+                        </a>
+                        </li>
+                        {% else %}
+                        <li>
+                        <a href="{{ path('user_register') }}">
+                        REGISTER
+                        </a>
+                        </li>
+                        <li>
+                        <a href="{{ path('security_login') }}">
+                        LOGIN
+                        </a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="{{ path('shop_index') }}">
+                                <img class="rounded-circle"
+                                     src="{{ asset('logo/Heart.png') }}"
+                                     width="50px" height="20px"/>
+{#                                {% if likes is defined %} {{ likes }} {% endif %}#}
+                                
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+{#                                    <p>Email: {{ app.user.email }}</p>#}
+                                     {{ likes_service.getLikes(app.user) }}
+                                {% endif %}  
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('basket') }}">
+                                <img class="rounded-circle"
+                                     src="{{ asset('logo/imageCart.png') }}"
+                                     width="50px" height="20px"/>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+<div class="container body-container">
+    {% block body %}
+        <div class="row">
+            <div id="main" class="col-sm-9">
+                {% block main %}{% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+</div>
+
+{% block footer %}
+    <footer>
+        <div class="container modal-footer">
+            <p>&copy; 2019 - Online Shop with Simfony</p>
+        </div>
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('js/moment.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>
+
